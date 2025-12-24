@@ -1,0 +1,4 @@
+Misconfiguration found:
+- Security Group allows SSH (22) from 0.0.0.0/0
+Severity: CRITICAL
+Risk: Unauthorized remote access

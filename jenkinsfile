@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/aishwaryc/devsecops-assignment.git'
+            }
+        }
+
+        stage('Terraform Security Scan') {
+            steps {
+                sh '''
+                trivy config terraform/ --severity HIGH,CRITICAL || true
+                '''
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                sh '''
+                cd terraform
+                terraform init
+                terraform plan
+                '''
+            }
+        }
+    }
+}
